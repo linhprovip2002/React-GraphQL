@@ -44,3 +44,27 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Run example 
+
+- Clone repo with command 
+```
+ git clone https://github.com/linhprovip2002/React-GraphQL.git
+
+ ```
+- Entered the directory server
+
+```
+ cd React-GraphQL/server
+```
+- Run server 
+
+```
+  yarn install
+  yarn start
+```
+- Back the directory client 
+```
+  yarn install
+  yarn dev
+```
