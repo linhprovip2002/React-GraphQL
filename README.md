@@ -50,7 +50,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Clone repo with command 
 ```
  git clone https://github.com/linhprovip2002/React-GraphQL.git
-
  ```
 - Entered the directory server
 

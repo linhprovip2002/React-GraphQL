@@ -1,31 +1,35 @@
 import React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
-import Employee from '../test/interface';
+import CreateLink from './forms/CreateLink';
+import Header from './layout/header';
 import LinkList from '../views/linkList/LinkList';
-function App() {
+import Login from './forms/Login';
+import { Route, Routes } from 'react-router-dom';
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <LinkList />
-      </header>
-      <div className="text-3xl font-bold underline">
-        <Employee name="John" age={20} country="USA" />
+    <div className='flex justify-center'>
+      <ReactNotifications />
+      <div className="center w-[92rem]">
+      <div className='flex justify-between'>
+        <Header />
+      </div> 
+      <div className="ph3 pv1 background-gray">
+        <Routes>
+          <Route path="/" element={<LinkList/>} />
+          <Route
+            path="/create"
+            element={<CreateLink/>}
+          />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
       </div>
     </div>
+
+    </div>
+
   );
-}
+};
 
 export default App;
