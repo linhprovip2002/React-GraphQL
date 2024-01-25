@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_LINK_MUTATION } from '../../graphQL';
-import { useNavigate } from 'react-router-dom';
-import { on } from 'events';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { CREATE_LINK_MUTATION } from "../../graphQL";
+import { useNavigate } from "react-router-dom";
+import { on } from "events";
 const CreateLink = () => {
   const navigate = useNavigate();
-  
+
   const [formState, setFormState] = useState({
-    description: '',
-    url: ''
+    description: "",
+    url: "",
   });
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,
-      url: formState.url
+      url: formState.url,
     },
-    onCompleted: () => navigate('/')
+    onCompleted: () => navigate("/"),
   });
 
   return (
@@ -33,7 +33,7 @@ const CreateLink = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                description: e.target.value
+                description: e.target.value,
               })
             }
             type="text"
@@ -45,7 +45,7 @@ const CreateLink = () => {
             onChange={(e) =>
               setFormState({
                 ...formState,
-                url: e.target.value
+                url: e.target.value,
               })
             }
             type="text"

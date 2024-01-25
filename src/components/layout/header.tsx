@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AUTH_TOKEN } from '../../constants';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AUTH_TOKEN } from "../../constants";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,13 +12,15 @@ const Header = () => {
         <Link to="/" className="text-white font-bold">
           Hacker News
         </Link>
-        <div className="flex space-x-4"> {/* Container for "New" and "Search" links */}
+        <div className="flex space-x-4">
+          {" "}
+          {/* Container for "New" and "Search" links */}
           <Link to="/" className="text-white">
             New
           </Link>
-         </div> 
-         <div className="flex space-x-4"> 
-         <div className="text-white">|</div>
+        </div>
+        <div className="flex space-x-4">
+          <div className="text-white">|</div>
           <Link to="/search" className="text-white">
             Search
           </Link>

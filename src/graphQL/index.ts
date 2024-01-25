@@ -1,10 +1,7 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const CREATE_LINK_MUTATION = gql`
-  mutation PostMutation(
-    $description: String!
-    $url: String!
-  ) {
+  mutation PostMutation($description: String!, $url: String!) {
     post(description: $description, url: $url) {
       id
       createdAt
@@ -15,30 +12,28 @@ const CREATE_LINK_MUTATION = gql`
 `;
 
 const FEED_QUERY = gql`
-{
-  feed {
-    id
-    count
-    links {
+  {
+    feed {
       id
-      url
-      description
-      createdAt
-      postedBy {
+      count
+      links {
         id
-        name
-      }
-      votes {
-        id
-        user {
+        url
+        description
+        createdAt
+        postedBy {
           id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
         }
       }
     }
-    
   }
-}
-
 `;
 const EDIT_LINK_MUTATION = gql`
   mutation EditLink($editLinkId: ID!, $url: String!, $description: String!) {
@@ -51,26 +46,15 @@ const EDIT_LINK_MUTATION = gql`
 `;
 
 const SIGNUP_MUTATION = gql`
-  mutation SignupMutation(
-    $email: String!
-    $password: String!
-    $name: String!
-  ) {
-    signup(
-      email: $email
-      password: $password
-      name: $name
-    ) {
+  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
       token
     }
   }
 `;
 
 const LOGIN_MUTATION = gql`
-  mutation LoginMutation(
-    $email: String!
-    $password: String!
-  ) {
+  mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
@@ -96,11 +80,11 @@ const VOTE_MUTATION = gql`
   }
 `;
 export {
-    CREATE_LINK_MUTATION,
-    FEED_QUERY,
-    SIGNUP_MUTATION,
-    LOGIN_MUTATION,
-    DELETE_LINK_MUTATION,
-    EDIT_LINK_MUTATION,
-    VOTE_MUTATION
-    }
+  CREATE_LINK_MUTATION,
+  FEED_QUERY,
+  SIGNUP_MUTATION,
+  LOGIN_MUTATION,
+  DELETE_LINK_MUTATION,
+  EDIT_LINK_MUTATION,
+  VOTE_MUTATION,
+};

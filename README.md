@@ -45,24 +45,29 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-## Run example 
+## Run example
 
-- Clone repo with command 
+- Clone repo with command
+
 ```
  git clone https://github.com/linhprovip2002/React-GraphQL.git
- ```
+```
+
 - Entered the directory server
 
 ```
  cd React-GraphQL/server
 ```
-- Run server 
+
+- Run server
 
 ```
   yarn install
   yarn start
 ```
-- Back the directory client 
+
+- Back the directory client
+
 ```
   yarn install
   yarn dev
