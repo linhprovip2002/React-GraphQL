@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { FEED_QUERY, DELETE_LINK_MUTATION, VOTE_MUTATION } from "../../graphQL";
 // import Link from '../../components/link'; // Make sure to adjust the path based on your project structure
@@ -39,7 +39,7 @@ const LinkList: React.FC = () => {
               },
             },
           });
-        }
+        },
       });
       Store.addNotification({
         title: "Success",

@@ -12,7 +12,6 @@ export const CreateLink: React.FC<EditLinkProps> = ({
   openModal,
   setOpenModal,
 }) => {
-  
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
     description: "",
@@ -42,7 +41,7 @@ export const CreateLink: React.FC<EditLinkProps> = ({
     update: (cache, { data }) => {
       // Update the cache manually to reflect the new data
       const newLink = data.createLink; // Replace with the actual structure of your data
-  
+
       cache.modify({
         fields: {
           // Assuming you have a 'allLinks' query, update it
@@ -53,7 +52,7 @@ export const CreateLink: React.FC<EditLinkProps> = ({
       });
     },
   });
-  
+
   return (
     <div
       className="fixed z-10 inset-0 overflow-y-auto"
