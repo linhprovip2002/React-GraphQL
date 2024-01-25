@@ -7,7 +7,7 @@ const Header = () => {
   const authToken = localStorage.getItem(AUTH_TOKEN);
 
   return (
-    <div className="flex justify-between items-center p-4 bg-orange-500 w-[92rem] ">
+    <div className="flex justify-between items-center p-4 bg-orange-500 w-[100%] ">
       <div className="flex items-center space-x-4">
         <Link to="/" className="text-white font-bold">
           Hacker News

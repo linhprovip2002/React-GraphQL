@@ -18,14 +18,36 @@ const FEED_QUERY = gql`
 {
   feed {
     id
+    count
     links {
       id
+      url
+      description
       createdAt
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+    
+  }
+}
+
+`;
+const EDIT_LINK_MUTATION = gql`
+  mutation EditLink($editLinkId: ID!, $url: String!, $description: String!) {
+    editLink(id: $editLinkId, url: $url, description: $description) {
+      id
       url
       description
     }
   }
-}
 `;
 
 const SIGNUP_MUTATION = gql`
@@ -51,6 +73,37 @@ const LOGIN_MUTATION = gql`
   ) {
     login(email: $email, password: $password) {
       token
+      user {
+        id
+        name
+      }
+    }
+  }
+`;
+const DELETE_LINK_MUTATION = gql`
+  mutation DeleteLink($deleteLinkId: ID!) {
+    deleteLink(id: $deleteLinkId) {
+      message
+      error
+    }
+  }
+`;
+const VOTE_MUTATION = gql`
+  mutation VoteMutation($linkId: ID!) {
+    vote(linkId: $linkId) {
+      id
+      link {
+        id
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
     }
   }
 `;
@@ -58,5 +111,8 @@ export {
     CREATE_LINK_MUTATION,
     FEED_QUERY,
     SIGNUP_MUTATION,
-    LOGIN_MUTATION
+    LOGIN_MUTATION,
+    DELETE_LINK_MUTATION,
+    EDIT_LINK_MUTATION,
+    VOTE_MUTATION
     }

@@ -21,6 +21,8 @@ const Login = () => {
     },
     onCompleted: ({ login }) => {
       localStorage.setItem(AUTH_TOKEN, login.token);
+      localStorage.setItem('currentUserId', login.user.id);
+      console.log(login.user.id);
       navigate('/');
     }
   });
@@ -73,12 +75,17 @@ const Login = () => {
           }
         });
         navigate('/login');
+        // set the formState to true
+        setFormState({
+          ...formState,
+          login: true
+        });
       }
       // Example navigation (replace with actual routing logic)
 
     } catch (error:any) {
       Store.addNotification({
-        title: "Register successfully!",
+        title: "Error! An error occurred. Please try again later",
         message: `${error.message}`,
         type: "danger",
         insert: "top",

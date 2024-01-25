@@ -26,6 +26,13 @@ async function post(parent, args, context, info) {
 async function signup(parent, args, context, info) {
   try {
     const password = await bcrypt.hash(args.password, 10);
+    // check user with email already exists
+    const userExists = await context.prisma.user.findUnique({
+      where: { email: args.email }
+    });
+    if (userExists) {
+      throw new Error('User already exists');
+    }
     const user = await context.prisma.user.create({
       data: { ...args, password }
     });

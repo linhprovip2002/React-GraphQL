@@ -11,7 +11,7 @@ const App = () => {
   return (
     <div className='flex justify-center'>
       <ReactNotifications />
-      <div className="center w-[92rem]">
+      <div className="center w-[80%]">
       <div className='flex justify-between'>
         <Header />
       </div> 
