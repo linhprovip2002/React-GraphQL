@@ -58,39 +58,28 @@ const LinkList: React.FC = () => {
     }
   };
   const handleVote = async (linkId: string) => {
-    try {
-      await voteMutation({
-        variables: { linkId },
-      });
-      Store.addNotification({
-        title: "Success",
-        message: "Link voted successfully!",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true
-        }
-      });
-      refetch();
-    } catch (error:any) {
-      Store.addNotification({
-        title: "Error",
-        message: "Link voted error!",
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: true
-        }
-      });
-    }
+      try {
+        await voteMutation({
+          variables: { linkId },
+        });
+        Store.addNotification({
+          title: "Success",
+          message: "Link voted successfully!",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
+        refetch();
+      } catch (error:any) {
+        console.log(error);
+      }
+  
   }
  
   const handleEditLink = async (linkId: string) => {

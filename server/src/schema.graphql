@@ -58,8 +58,9 @@ type DeleteLinkResponse {
 
 type Vote {
   id: ID!
-  link: Link!
   user: User!
+  link: Link! 
+  message: String!
 }
 
 input LinkOrderByInput {

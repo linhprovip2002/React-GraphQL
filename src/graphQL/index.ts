@@ -89,21 +89,9 @@ const DELETE_LINK_MUTATION = gql`
   }
 `;
 const VOTE_MUTATION = gql`
-  mutation VoteMutation($linkId: ID!) {
+  mutation Vote($linkId: ID!) {
     vote(linkId: $linkId) {
-      id
-      link {
-        id
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-      user {
-        id
-      }
+      message
     }
   }
 `;

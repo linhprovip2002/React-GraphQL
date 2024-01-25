@@ -73,34 +73,49 @@ async function login(parent, args, context, info) {
 
 
 async function vote(parent, args, context, info) {
-  const { userId } = context;
+  try {
+    const { userId } = context;
 
-  const vote = await context.prisma.vote.findUnique({
-    where: {
-      linkId_userId: {
-        linkId: args.linkId,
-        userId: userId
+    const vote = await context.prisma.vote.findUnique({
+      where: {
+        linkId_userId: {
+          linkId: args.linkId,
+          userId: userId
+        }
       }
-    }
-  });
+    });
   
-
-  if (Boolean(vote)) {
-    throw new Error(
-      `Already voted for link: ${args.linkId}`
-    );
-  }
-
-  const newVote = context.prisma.vote.create({
-    data: {
-      user: { connect: { id: userId } },
-      link: { connect: { id: args.linkId } }
+    if (vote) {
+      // User has already voted, remove the vote (unvote)
+      await context.prisma.vote.delete({
+        where: {
+          id: vote.id
+        }
+      });
+  
+      // Inform the client that the vote has been removed
+      context.pubsub.publish('VOTE_REMOVED', { voteRemoved: vote });
+  
+      // You can return some information or null indicating success
+      return { message: `Vote removed for link: ${args.linkId}` };
     }
-  });
-  context.pubsub.publish('NEW_VOTE', newVote);
-
-  return newVote;
+  
+    const newVote = await context.prisma.vote.create({
+      data: {
+        user: { connect: { id: userId } },
+        link: { connect: { id: args.linkId } }
+      }
+    });
+  
+    // Publish the new vote with the correct payload
+    context.pubsub.publish('NEW_VOTE', { newVote });
+  
+    return {message: `Vote added for link: ${args.linkId}`};
+  } catch (error) {
+    return { message : "Error voting"}
+  }
 }
+
 async function deleteLink(parent, args, context, info) {
   try {
     const { id } = args;
