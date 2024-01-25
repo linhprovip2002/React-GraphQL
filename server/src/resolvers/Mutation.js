@@ -118,16 +118,29 @@ async function vote(parent, args, context, info) {
 async function deleteLink(parent, args, context, info) {
   try {
     const { id } = args;
+
+    // Delete votes associated with the link
+    await context.prisma.vote.deleteMany({
+      where: {
+        link: {
+          id,
+        },
+      },
+    });
+
+    // Delete the link
     await context.prisma.link.delete({
       where: { id },
     });
-    console.log("Link deleted successfully");
-    return { message: "Link deleted successfully" };
+
+    console.log("Link and associated votes deleted successfully");
+    return { message: "Link and associated votes deleted successfully" };
   } catch (error) {
-    console.log(error);
-    return { error: "Error deleting link" };
+    console.error(error);
+    return { error: "Error deleting link and associated votes" };
   }
 }
+
 
 module.exports = {
   post,

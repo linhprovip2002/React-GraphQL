@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { FEED_QUERY, DELETE_LINK_MUTATION, VOTE_MUTATION } from "../../graphQL";
 // import Link from '../../components/link'; // Make sure to adjust the path based on your project structure
@@ -9,8 +9,10 @@ import { MdDelete } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { Store } from "react-notifications-component";
+import { CreateLink } from "../../components/popup/";
 
 const LinkList: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
   const currentUserId = localStorage.getItem("currentUserId");
   const { data, loading, error, refetch } = useQuery(FEED_QUERY, {
     onCompleted: () => {
@@ -24,6 +26,20 @@ const LinkList: React.FC = () => {
     try {
       await deleteLink({
         variables: { deleteLinkId: linkId },
+        update: (cache, { data: { deleteLink } }) => {
+          const existingLinks: any = cache.readQuery({ query: FEED_QUERY });
+          const newLinks = existingLinks.feed.links.filter(
+            (link: any) => link.id !== deleteLink.id,
+          );
+          cache.writeQuery({
+            query: FEED_QUERY,
+            data: {
+              feed: {
+                links: newLinks,
+              },
+            },
+          });
+        }
       });
       Store.addNotification({
         title: "Success",
@@ -55,6 +71,10 @@ const LinkList: React.FC = () => {
       });
     }
   };
+  useEffect(() => {
+    refetch();
+  }, [openModal]);
+
   const handleVote = async (linkId: string) => {
     try {
       await voteMutation({
@@ -93,6 +113,18 @@ const LinkList: React.FC = () => {
 
   return (
     <div>
+      <div className="flex justify-between items-center mt-4 mb-4">
+        <h1 className="text-2xl">Links</h1>
+        {authToken && (
+          <button
+            className="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 text-white font-bold py-2 px-4 rounded-full shadow-md hover:shadow-lg transition duration-300 animate-bounce overflow-hidden"
+            onClick={() => setOpenModal(true)}
+          >
+            Create New Link
+            <span className="absolute inset-0 border-2 border-transparent rounded-full transition-all duration-300 group-hover:border-white"></span>
+          </button>
+        )}
+      </div>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr>
@@ -146,6 +178,9 @@ const LinkList: React.FC = () => {
           ))}
         </tbody>
       </table>
+      {openModal && (
+        <CreateLink openModal={openModal} setOpenModal={setOpenModal} />
+      )}
     </div>
   );
 };

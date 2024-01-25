@@ -22,7 +22,6 @@ const Login = () => {
     onCompleted: ({ login }) => {
       localStorage.setItem(AUTH_TOKEN, login.token);
       localStorage.setItem("currentUserId", login.user.id);
-      console.log(login.user.id);
       navigate("/");
     },
   });
